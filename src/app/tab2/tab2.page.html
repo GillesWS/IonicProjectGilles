@@ -7,15 +7,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <!-- List of photos with captions -->
-    <ion-item *ngFor="let photo of photos">
-      <ion-thumbnail slot="start">
-        <img [src]="photo.image" alt="Photo">
-      </ion-thumbnail>
-      <ion-label>
-        <h2>{{ photo.caption }}</h2>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <!-- Display photos in a row -->
+      <ion-col size="6" *ngFor="let photo of photos; let i = index">
+        <ion-card>
+          <ion-img [src]="photo.image" alt="Photo"></ion-img>
+          <ion-card-content>
+            <h2>{{ photo.caption }}</h2>
+            <ion-button color="danger" (click)="deletePhoto(i)">Delete</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

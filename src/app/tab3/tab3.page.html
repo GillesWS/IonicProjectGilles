@@ -1,40 +1,39 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Edit Photo</ion-title>
+    <ion-title>About</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- File input for photo selection -->
-  <input type="file" accept="image/*" (change)="loadPhoto($event)" />
+  <div class="ion-text-center">
+    <h2>About</h2>
+    <p>Welcome to my dynamic gallery app! Explore a diverse collection of captivating images through a user-friendly interface. Whether you're an art enthusiast or seeking visual inspiration, our gallery app showcases creativity and beauty.</p>
+  </div>
 
-  <!-- Color selection buttons -->
-  <ion-segment [(ngModel)]="selectedColor" color="secondary">
-    <ion-segment-button value="black">
-      <ion-label>Black</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="red">
-      <ion-label>Red</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="blue">
-      <ion-label>Blue</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="green">
-      <ion-label>Green</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+  <h2>Feedback</h2>
+  <!-- Interactive section -->
+  <form #feedbackForm="ngForm" (ngSubmit)="submitFeedback()">
+    <ion-item>
+      <ion-label position="stacked">Your Name</ion-label>
+      <ion-input [(ngModel)]="userName" name="userName" placeholder="Enter your name" required></ion-input>
+    </ion-item>
 
-  <!-- Edit Photo button -->
-  <ion-button expand="full" (click)="editPhoto()">Edit Photo</ion-button>
+    <ion-item>
+      <ion-label position="stacked">Feedback</ion-label>
+      <ion-textarea 
+        [(ngModel)]="userFeedback" 
+        name="userFeedback" 
+        placeholder="Share your thoughts"
+        minlength="20" required></ion-textarea>
+    </ion-item>
 
-  <!-- Input for desired file name -->
-  <ion-input [(ngModel)]="desiredFileName" placeholder="Enter desired file name" required></ion-input>
+    <ion-button expand="full" type="submit" [disabled]="!feedbackForm.valid">Submit</ion-button>
+  </form>
 
-  <!-- Save Photo button -->
-  <ion-button expand="full" (click)="savePhoto()">Save Photo</ion-button>
-
-  <!-- Canvas for editing photos -->
-  <div class="canvas-container">
-  <canvas #canvas></canvas>
+  <!-- Display section -->
+  <div *ngIf="submitted" class="ion-text-center">
+    <h3>Thank you, {{ userName }}!</h3>
+    <p>We appreciate your feedback:</p>
+    <p>{{ userFeedback }}</p>
   </div>
 </ion-content>

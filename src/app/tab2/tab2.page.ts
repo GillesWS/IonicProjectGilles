@@ -31,5 +31,9 @@ export class Tab2Page {
   clearGallery() {
     this.photos = [];
   }
+
+  deletePhoto(photoIndex: number) {
+    this.dataService.deletePhoto(photoIndex);
+  }
   
 }
