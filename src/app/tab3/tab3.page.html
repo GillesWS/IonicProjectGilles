@@ -1,17 +1,40 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>Edit Photo</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <!-- File input for photo selection -->
+  <input type="file" accept="image/*" (change)="loadPhoto($event)" />
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <!-- Color selection buttons -->
+  <ion-segment [(ngModel)]="selectedColor" color="secondary">
+    <ion-segment-button value="black">
+      <ion-label>Black</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="red">
+      <ion-label>Red</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="blue">
+      <ion-label>Blue</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="green">
+      <ion-label>Green</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Edit Photo button -->
+  <ion-button expand="full" (click)="editPhoto()">Edit Photo</ion-button>
+
+  <!-- Input for desired file name -->
+  <ion-input [(ngModel)]="desiredFileName" placeholder="Enter desired file name" required></ion-input>
+
+  <!-- Save Photo button -->
+  <ion-button expand="full" (click)="savePhoto()">Save Photo</ion-button>
+
+  <!-- Canvas for editing photos -->
+  <div class="canvas-container">
+  <canvas #canvas></canvas>
+  </div>
 </ion-content>

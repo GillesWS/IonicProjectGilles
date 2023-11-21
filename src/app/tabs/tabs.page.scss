@@ -1,1 +1,8 @@
-
+/* Define the expanded class to adjust image size */
+ion-thumbnail img.expanded {
+    max-width: none;
+    max-height: none;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+  }

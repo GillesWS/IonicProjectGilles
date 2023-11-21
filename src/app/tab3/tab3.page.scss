@@ -1,0 +1,12 @@
+.canvas-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    max-width: 100%; /* Ensure the container fits within the viewport */
+    display: flex; /* Allow flex properties */
+    justify-content: center; /* Center the canvas horizontally */
+  }
+  
+  canvas {
+    /* Optional: Ensure the canvas fits within the container */
+    max-width: 100%;
+    height: auto; /* Maintain aspect ratio */
+  }
