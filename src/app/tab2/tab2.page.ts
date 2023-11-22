@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -8,7 +10,7 @@ import { DataService } from '../data.service';
 export class Tab2Page {
   photos: { image: string, caption: string }[] = [];
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private navCtrl: NavController) {}
   selectedPhoto: string | null = null;
 
   displayPhoto(photoUrl: string) {
@@ -34,6 +36,18 @@ export class Tab2Page {
 
   deletePhoto(photoIndex: number) {
     this.dataService.deletePhoto(photoIndex);
+  }
+
+  updatePhoto(photo: { image: string, caption: string }) {
+    const photoIndex = this.photos.findIndex(p => p === photo);
+    if (photoIndex !== -1) {
+      this.navCtrl.navigateForward(['/tabs/tab2/update-photo'], {
+        queryParams: {
+          image: photo.image,
+          caption: photo.caption
+        }
+      });
+    }
   }
   
 }

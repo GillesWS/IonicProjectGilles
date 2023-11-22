@@ -24,5 +24,14 @@ export class DataService {
       this.getPhotos();
     }
   }
+
+  updatePhoto(photoData: { image: string, caption: string }, updatedPhoto: { image: string, caption: string }) {
+    const photoIndex = this.photos.findIndex(
+      photo => photo.image === photoData.image && photo.caption === photoData.caption
+    );
   
+    if (photoIndex !== -1) {
+      this.photos[photoIndex] = updatedPhoto;
+    }
+  }
 }

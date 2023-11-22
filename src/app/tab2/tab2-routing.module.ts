@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: Tab2Page,
+  },
+  {
+    path: 'update-photo',
+    loadChildren: () => import('./update-photo/update-photo.module').then( m => m.UpdatePhotoPageModule)
   }
 ];
 
