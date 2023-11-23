@@ -11,7 +11,7 @@ import { DataService } from '../../data.service';
 export class UpdatePhotoPage {
   updatedImage: string = '';
   updatedCaption: string = '';
-  currentIndex: number = -1; // Add a variable to store the index
+  currentIndex: number = -1;
 
   constructor(
     private router: Router,

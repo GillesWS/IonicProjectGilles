@@ -7,15 +7,16 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row style="display: flex; flex-wrap: wrap;">
-      <!-- Display photos in a row -->
-      <ion-col size="4" *ngFor="let photo of photos; let i = index" style="display: flex; flex-direction: column;">
-        <ion-card style="flex: 1; display: flex; flex-direction: column;">
-          <ion-img [src]="photo.image" alt="Photo" style="flex: 1; object-fit: cover; height: 200px;"></ion-img>
-          <ion-card-content style="margin-top: auto;">
-            <h2>{{ photo.caption }}</h2>
-            <ion-button color="primary" slot="end" (click)="updatePhoto(photo)">Update</ion-button>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6" size-md="4" size-lg="3" *ngFor="let photo of photos; let i = index">
+        <ion-card>
+          <ion-img [src]="photo.image" alt="Photo"></ion-img>
+          <ion-card-header>
+            <ion-card-title>{{ photo.caption }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button color="primary" (click)="updatePhoto(photo)">Update</ion-button>
             <ion-button color="danger" (click)="deletePhoto(i)">Delete</ion-button>
           </ion-card-content>
         </ion-card>

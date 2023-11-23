@@ -10,7 +10,6 @@ import { DataService } from '../data.service';
 export class Tab1Page {
   selectedImage: string = '';
   caption: string = '';
-  // Array to store photos with captions
   gallery: { image: string, caption: string }[] = [];
   constructor(private dataService: DataService) {}
 
@@ -18,7 +17,7 @@ export class Tab1Page {
     Camera.getPhoto({
       resultType: CameraResultType.Uri
     }).then(image => {
-      this.selectedImage = image?.webPath || ''; // Use optional chaining and a default value
+      this.selectedImage = image?.webPath || '';
     }).catch(error => {
       console.error('Error capturing photo: ', error);
     });
@@ -27,16 +26,12 @@ export class Tab1Page {
   addToGallery() {
     if (this.selectedImage && this.caption) {
       this.dataService.addPhoto(this.selectedImage, this.caption);
-  
-      // Clear the input field and selected image
       this.caption = '';
       this.selectedImage = '';
     }
   }
 
-  // Function to add a photo to the gallery with a caption
   addPhotoToGallery(image: string, caption: string) {
-    // Push the data to the gallery array
     this.gallery.push({ image, caption });
   }
 }

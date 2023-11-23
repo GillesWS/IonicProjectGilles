@@ -17,8 +17,6 @@ export class Tab3Page {
   constructor() {}
 
   submitFeedback() {
-    // Perform actions with the feedback, e.g., send to server, store locally, etc.
-    // For now, let's just mark it as submitted and display the entered data.
     this.submitted = true;
   }
 }

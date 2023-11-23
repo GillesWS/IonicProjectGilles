@@ -25,11 +25,10 @@ export class Tab2Page {
   }
 
   populateGallery() {
-    // Fetch photos from the data service
     this.photos = this.dataService.getPhotos();
   }
 
-  // Example function to clear the gallery (you can customize this)
+  // make photos empty
   clearGallery() {
     this.photos = [];
   }
