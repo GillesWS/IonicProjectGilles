@@ -40,9 +40,13 @@ export class UpdatePhotoPage {
 
   updatePhoto() {
     if (this.updatedImage && this.updatedCaption) {
-      const updatedPhoto = { image: this.updatedImage, caption: this.updatedCaption };
-      const originalPhoto = { image: this.updatedImage, caption: this.updatedCaption }; // Update with actual original data
+      const originalPhoto = {
+        image: this.activatedRoute.snapshot.queryParams['image'],
+        caption: this.activatedRoute.snapshot.queryParams['caption']
+      };
   
+      const updatedPhoto = { image: this.updatedImage, caption: this.updatedCaption };
+    
       this.dataService.updatePhoto(originalPhoto, updatedPhoto);
       this.router.navigate(['/tabs/tab2']);
     }
