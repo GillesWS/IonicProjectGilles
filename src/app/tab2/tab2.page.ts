@@ -1,52 +1,40 @@
-import { Component } from '@angular/core';
-import { DataService } from '../data.service';
-import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  photos: { image: string, caption: string }[] = [];
+  photos: { image: string; caption: string }[] = [];
 
-  constructor(private dataService: DataService, private navCtrl: NavController) {}
-  selectedPhoto: string | null = null;
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+    window.api.ipcReceiveGalleryUpdate((galleryData) => {
+      // Push the new image to the photos array
+      this.photos.push(galleryData);
+      });
 
-  displayPhoto(photoUrl: string) {
-    this.selectedPhoto = photoUrl;
+      // Receive the deleted photo index and update your gallery
+      window.api.ipcReceivePhotoDeleted((deletedIndex) => {
+      // Remove the deleted photo from the gallery based on its index
+      this.photos.splice(deletedIndex, 1);
+      // Refresh your gallery view or perform necessary updates
+      this.changeDetectorRef.detectChanges();
+      });
   }
-
-  clearSelectedPhoto() {
-    this.selectedPhoto = null;
-  }
-  ngOnInit() {
-    this.populateGallery();
-  }
-
-  populateGallery() {
-    this.photos = this.dataService.getPhotos();
-  }
-
-  // make photos empty
-  clearGallery() {
-    this.photos = [];
-  }
-
-  deletePhoto(photoIndex: number) {
-    this.dataService.deletePhoto(photoIndex);
-  }
-
+  
   updatePhoto(photo: { image: string, caption: string }) {
-    const photoIndex = this.photos.findIndex(p => p === photo);
-    if (photoIndex !== -1) {
-      this.navCtrl.navigateForward(['/tabs/tab2/update-photo'], {
-        queryParams: {
-          image: photo.image,
-          caption: photo.caption
-        }
+    // Pass the photo details to the Electron process to open the update-photo page
+    if (window.api) {
+      window.api.openUpdatePhoto({
+        image: photo.image,
+        caption: photo.caption
       });
     }
   }
   
+  // Function to delete a photo from the gallery based on its index
+  deletePhoto(index: number) {
+    window.api.deletePhotoFromGallery(index);
+  }  
 }

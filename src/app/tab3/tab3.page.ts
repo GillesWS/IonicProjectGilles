@@ -13,10 +13,21 @@ export class Tab3Page {
   userName: string = '';
   userFeedback: string = '';
   submitted: boolean = false;
-
+  receivedFeedback: { userName: string; userFeedback: string } | null = null;
+  
   constructor() {}
+
+  ngOnInit() {
+    window.api.ipcReceiveFeedback((feedbackData) => {
+      this.receivedFeedback = feedbackData;
+    });
+  }
 
   submitFeedback() {
     this.submitted = true;
+    window.api.submitFeedback({
+      userName: this.userName,
+      userFeedback: this.userFeedback
+    });
   }
 }
